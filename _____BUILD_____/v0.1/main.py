@@ -8,7 +8,7 @@ import pandas as pd
 
 initColorama()
 
-_APPNAME_   = Fore.CYAN + "ZTK.BaseSep (x86 Edition)"
+_APPNAME_   = Fore.CYAN + "ZTK.BaseSep"
 _APPVER_    = Fore.LIGHTBLACK_EX + "v0.1"
 _DEVELOPER_ = Fore.GREEN + "RiotMesh"
 
