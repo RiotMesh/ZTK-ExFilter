@@ -1,10 +1,11 @@
 from colorama import init as initColorama
 from colorama import Fore, Back, Style
 from numpy import array
-from lib.custom_input import *
-from lib.messager import Message
+from modules.custom_input import *
 from array import *
 import pandas as pd
+
+from modules.updater import *
 
 ### -------------------------------------------------------------------- ABOUT PROGRAMM
 
@@ -68,5 +69,9 @@ while i < len(allRanges):
     i += 1
 
 print(Fore.LIGHTGREEN_EX + "Всего номеров: " + Style.RESET_ALL + str(allRangesNumbers))
+
+print("#######################")
+
+IsNeedUpdate()
 
 input_("Нажмите любую клавишу чтобы выйти...")
