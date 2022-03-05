@@ -1,77 +1,87 @@
+import requests.exceptions
 from colorama import init as initColorama
 from colorama import Fore, Back, Style
 from numpy import array
 from modules.custom_input import *
 from array import *
-import pandas as pd
-
 from modules.updater import *
+
+import pandas as pd
 
 ### -------------------------------------------------------------------- ABOUT PROGRAMM
 
 initColorama()
 
-_APPNAME_   = Fore.CYAN + "ZTK.BaseSep (x86 Edition)"
-_APPVER_    = Fore.LIGHTBLACK_EX + "v0.1.1"
+_APPNAME_ = Fore.CYAN + "ZTK.BaseSep (x86 Edition)"
+_APPVER_ = Fore.LIGHTBLACK_EX + "v0.1.1"
 _DEVELOPER_ = Fore.GREEN + "RiotMesh"
+_DEBUGMODE_ = True
 
-print("[ " + _APPNAME_ + " " + _APPVER_ + " - by " + _DEVELOPER_ + Style.RESET_ALL + " ]")
+print("[ " + _APPNAME_ + " " + _APPVER_ + " - by "
+      + _DEVELOPER_ + Style.RESET_ALL + " ]")
 
 ### -------------------------------------------------------------------- ###
 
-excelFilePath = input_("Имя Excel файла или путь к нему: ")
+if _DEBUGMODE_ == False:
 
-print(Fore.LIGHTBLACK_EX + "Выполняются подсчёты ...")
+    excelFilePath = input_("Имя Excel файла или путь к нему: ")
 
-doc = pd.read_excel(excelFilePath, index_col='n Тел Д', usecols=[0])
+    print(Fore.LIGHTBLACK_EX + "Выполняются подсчёты ...")
 
-### ----------FROM------TO---------------------------------------------- RANGES
+    doc = pd.read_excel(excelFilePath, index_col='n Тел Д', usecols=[0])
 
-allRanges = [[640000, 649999],
-            [691000, 691099],
-            [691800, 692099],
-            [692800, 692999],
-            [699000, 699199],
-            [699600, 699799]]
+    ### ----------FROM------TO---------------------------------------------- RANGES
 
-allRangesSum = array('i', [])
+    allRanges = [[640000, 649999],
+                 [691000, 691099],
+                 [691800, 692099],
+                 [692800, 692999],
+                 [699000, 699199],
+                 [699600, 699799]]
 
-### -------------------------------------------------------------------- CALCULATE NUMBERS COUNT IN RANGES
+    allRangesSum = array('i', [])
 
-i = 0
-while i < len(allRanges):
+    ### -------------------------------------------------------------------- CALCULATE NUMBERS COUNT IN RANGES
 
-    allRangesSum.append(0)
+    i = 0
+    while i < len(allRanges):
 
-    for number in doc.index:
+        allRangesSum.append(0)
 
-        if number >= allRanges[i][0] and number <= allRanges[i][1]:
+        for number in doc.index:
 
-            allRangesSum[i] += 1
+            if number >= allRanges[i][0] and number <= allRanges[i][1]:
 
-    i += 1
+                allRangesSum[i] += 1
 
-### -------------------------------------------------------------------- CALCULATE NUMBERS COUNT
+        i += 1
 
-allRangesNumbers = 0
-for count in allRangesSum:
-    allRangesNumbers += count
+    ### -------------------------------------------------------------------- CALCULATE NUMBERS COUNT
 
-### -------------------------------------------------------------------- PRINT INFO
+    allRangesNumbers = 0
+    for count in allRangesSum:
+        allRangesNumbers += count
 
-i = 0
-while i < len(allRanges):
+    ### -------------------------------------------------------------------- PRINT INFO
 
-    print(Fore.LIGHTBLUE_EX + "Диапазон " + str(i) +
-        " (" + str(allRanges[i][0]) + " - " + str(allRanges[i][1]) + "): " +
-        Style.RESET_ALL + str(allRangesSum[i]))
+    i = 0
+    while i < len(allRanges):
 
-    i += 1
+        print(Fore.LIGHTBLUE_EX + "Диапазон " + str(i)
+              + " (" + str(allRanges[i][0]) + " - "
+              + str(allRanges[i][1]) + "): "
+              + Style.RESET_ALL + str(allRangesSum[i]))
 
-print(Fore.LIGHTGREEN_EX + "Всего номеров: " + Style.RESET_ALL + str(allRangesNumbers))
+        i += 1
 
-print("#######################")
+    print(Fore.LIGHTGREEN_EX + "Всего номеров: "
+          + Style.RESET_ALL + str(allRangesNumbers))
 
-IsNeedUpdate()
+else:
+    print(Fore.LIGHTWHITE_EX + "DEBUG MODE" + Style.RESET_ALL + "\n")
 
-input_("Нажмите любую клавишу чтобы выйти...")
+### -------------------------------------------------------------------- ###
+
+print("Internet: " + str(CheckInternet()))
+print("Server: " + str(CheckServer()))
+print("Update: " + CheckUpdates())
