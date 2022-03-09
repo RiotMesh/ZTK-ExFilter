@@ -1,10 +1,14 @@
+import os
 import requests.exceptions
+
 from colorama import init as initColorama
 from colorama import Fore, Back, Style
 from numpy import array
-from modules.custom_input import *
 from array import *
+from os import system
+
 from modules.updater import *
+from modules.custom_input import *
 
 import pandas as pd
 
@@ -12,15 +16,43 @@ import pandas as pd
 
 initColorama()
 
-_APPNAME_ = Fore.CYAN + "ZTK.BaseSep (x86 Edition)"
-_APPVER_ = Fore.LIGHTBLACK_EX + "v0.1.1"
-_DEVELOPER_ = Fore.GREEN + "RiotMesh"
-_DEBUGMODE_ = True
+_APPNAME_       = Fore.LIGHTGREEN_EX + "ZTK.BaseSep (x86 Edition)"
+_APPVER_        = Fore.LIGHTBLACK_EX + "v0.1.1"
+_DEVELOPER_     = Fore.GREEN + "RiotMesh"
+_DEBUGMODE_     = True
+_APPLIFE_       = True
+_HEADMESSAGE_   = Style.RESET_ALL + "Добро пожаловать!"
 
-print("[ " + _APPNAME_ + " " + _APPVER_ + " - by "
-      + _DEVELOPER_ + Style.RESET_ALL + " ]")
+mainMenu        = [
+    Fore.LIGHTCYAN_EX + "[1] " + Style.RESET_ALL + " Расчёт номеров в диапазонах (простой режим)",
+    Fore.LIGHTCYAN_EX + "[2] " + Style.RESET_ALL + " Расчёт номеров в диапазонах (расширенный режим)",
+    Fore.LIGHTCYAN_EX + "[3] " + Style.RESET_ALL + " Настройки",
+    "",
+    Fore.LIGHTCYAN_EX + "[4] " + Style.RESET_ALL + " Проверка обновлений",
+    Fore.LIGHTCYAN_EX + "[5] " + Style.RESET_ALL + " О программе",
+    Fore.LIGHTCYAN_EX + "[0] " + Style.RESET_ALL + " Выход"
+]
 
-### -------------------------------------------------------------------- ###
+def clean():
+    os.system("cls")
+
+while _APPLIFE_:
+
+    print("[ " + _APPNAME_ + " " + _APPVER_ + " - by "
+          + _DEVELOPER_ + Style.RESET_ALL + " ]", end="\n")
+    print(Fore.LIGHTWHITE_EX + "===>> " + _HEADMESSAGE_)
+
+    for menuItem in mainMenu:
+        print(menuItem)
+
+    action = input_("")
+
+    if action == "0":
+        _APPLIFE_ = False
+    else:
+        print(Fore.LIGHTRED_EX + "Не удалось распознать команду" + Style.RESET_ALL)
+
+'''
 
 if _DEBUGMODE_ == False:
 
@@ -82,6 +114,11 @@ else:
 
 ### -------------------------------------------------------------------- ###
 
+StartThread()
+print(Thread0_Data)
+
 print("Internet: " + str(CheckInternet()))
 print("Server: " + str(CheckServer()))
 print("Update: " + CheckUpdates())
+
+'''
